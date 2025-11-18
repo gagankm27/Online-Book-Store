@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            background: #f4f7fb;
+        }
+
+        .navbar {
+            background:#4A90E2;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar button {
+            background: #fcfcfcff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+            color: black;
+        }
+
+        .navbar button:hover {
+            background: #ea0808ff;
+            color: white;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 32px;
+            color: black;
+            font-weight: 600;
+        }
+
+        .cart-box {
+            width: 80%;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        th {
+            background: #4A90E2;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f5f9ff;
+        }
+
+        .remove-btn {
+            background: #d9534f;
+            padding: 8px 16px;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #b52b27;
+        }
+
+        .total-box {
+            margin-top: 20px;
+            text-align: right;
+            font-size: 22px;
+            font-weight: bold;
+            color: #d90704ff;
+        }
+
+        .checkout-btn {
+            background: #4A90E2;
+            padding: 12px 22px;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            display: block;
+            margin: 30px auto;
+            font-size: 18px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .empty-msg {
+            text-align: center;
+            font-size: 20px;
+            margin: 20px 0;
+            color: #777;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="navbar">
+    <div style="color: black; background:white; padding: 5px 15px; border-radius: 8px;">🛒 Your Cart</div>
+
+    <div class="nav-buttons">
+        <a href="/home/"><button><b>Home</b></button></a>
+        <a href="/"><button><b>Logout</b></button></a>
+    </div>
+</div>
+
+<h2>Items in Your Cart</h2>
+
+<div class="cart-box">
+
+    {% if cart %}
+    <table>
+        <tr>
+            <th>Book Name</th>
+            <th>Price</th>
+            <th>Remove</th>
+        </tr>
+
+        {% for item in cart %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>$ {{ item.price }}</td>
+            <td>
+                <form action="/remove_from_cart/{{ forloop.counter0 }}/" method="POST">
+                    {% csrf_token %}
+                    <button class="remove-btn">Remove</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="total-box">Total: $ {{ total }}</div>
+
+<button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+
+<script>
+function checkout() {
+    alert("Your order has been placed successfully..!" + " 🎉 Thank You.");
+    window.location.href = "/checkout/";   // Redirect to Django URL
+}
+</script>
+
+    {% else %}
+    <p class="empty-msg">Your cart is empty 🛒</p>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

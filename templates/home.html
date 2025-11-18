@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Book Store</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            background:#4A90E2;
+            backdrop-filter: blur(12px);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar button {
+            background: #fcfcfcff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+            color: black;
+        }
+
+        .navbar button:hover {
+            background: #ea0808ff;
+            color: white;   
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 32px;
+            color: Black;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Book Grid Layout */
+        .book-grid {
+            width: 90%;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        /* Book Card */
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        }
+
+        .book-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 12px 0;
+        }
+
+        .price {
+            font-size: 18px;
+            color: #d90704ff;
+            font-weight: bold;
+        }
+
+        .buy-btn {
+            margin-top: 12px;
+            background:#4A90E2;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .buy-btn:hover {
+            opacity: 0.85;
+        }
+    </style>
+
+    <script>
+        function buyBook(name) {
+            alert(name + " - Book Purchase Successful!");
+        }
+    </script>
+
+</head>
+<body>
+
+<div class="navbar">
+    <div style="color: black; background:white; padding: 5px 15px; border-radius: 8px;">📚 Online Book Store</div>
+
+    <div class="nav-buttons">
+        <a href="/cart/"><button><b>Go to Cart</b></button></a>
+        <a href="/"><button><b>Log Out</b></button></a>
+    </div>
+</div>
+
+<h2>Available Books</h2>
+
+<div class="book-grid">
+
+    {% for book in books %}
+    <div class="book-card">
+
+        <!-- Display book card -->
+        <div class="book-title">{{ book.name }}</div>
+        <div class="price">$ {{ book.price }}</div>
+
+    <form action="/add_to_cart/{{ book.id }}/" method="POST">
+        {% csrf_token %}
+        <button class="buy-btn">Add to Cart</button>
+    </form>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

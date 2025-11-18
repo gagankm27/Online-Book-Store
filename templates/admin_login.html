@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login Page</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            background: #fff;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background:#4A90E2;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+                .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar button {
+            background: #fcfcfcff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+            color: black;
+        }
+
+        .navbar button:hover {
+            background: #ea0808ff;
+            color:white;
+        }
+
+        .container {
+            width: 80%;
+            height: 75vh;
+            display: flex;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 40px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* LEFT PANEL */
+        .left-panel {
+            width: 50%;
+            background: #4A90E2;
+            color: white;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left-panel h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .left-panel p {
+            line-height: 1.6;
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        /* RIGHT SECTION */
+        .login-box {
+            width: 50%;
+            background: #ffffff;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-title {
+            font-size: 22px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .input-group {
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .input-group input {
+            width: 80%;
+            padding: 12px 40px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #4A90E2;
+            box-shadow: 0 0 8px rgba(74,144,226,0.3);
+            outline: none;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 13px;
+            color: #888;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            border-radius: 30px;
+            border: none;
+            background: #4A90E2;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #3f7ec4;
+            transform: scale(1.03);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div style="color: black; background:white; padding: 5px 15px; border-radius: 8px;">📚 Online Book Store</div>
+    <div class="nav-buttons">
+        <a href="/"><button><b>Log Out</b></button></a>
+    </div>
+</div>
+
+<div class="container">
+    
+    <!-- LEFT SECTION -->
+    <div class="left-panel">
+        <h1>Welcome Admin😎📚✨</h1>
+        <p>
+            Where admins manage with precision and readers explore with ease, our platform brings together the best of both worlds.
+            Designed as a smarter, faster, and more delightful bookstore ecosystem, it empowers administrators to handle inventory effortlessly        
+        </p>
+    </div>
+
+    <!-- RIGHT SECTION -->
+    <div class="login-box">
+        <div class="login-title">ADMIN LOGIN</div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <i>👤</i>
+                <input type="text" name="username" placeholder="Enter Username" required>
+            </div>
+
+            <div class="input-group">
+                <i>🔒</i>
+                <input type="password" name="password" placeholder="Enter Password" required>
+            </div>
+
+            <button type="submit">LOGIN</button>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

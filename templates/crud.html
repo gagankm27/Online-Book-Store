@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ADMIN ACCESS</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        .navbar {
+            background: #4A90E2;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            font-size: 22px;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+         .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar button {
+            background: #fcfcfcff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+            color: black;
+        }
+
+        .navbar button:hover {
+            background: #ea0808ff;
+            color: white;   
+        }
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 30px;
+            color: #333;
+        }
+
+        form {
+            width: 80%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        form input {
+            padding: 10px;
+            margin: 5px;
+            width: 200px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        form button:hover {
+            background: #3b7fc7;
+        }
+
+        table {
+            width: 80%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        table th {
+            background: #4A90E2;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+        }
+
+        table td {
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #f1f7ff;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="navbar">
+    <div style="background:white; color: black; padding: 5px 15px; border-radius: 8px;">📘 Admin Book Manager</div>
+
+    <a href="/">
+        <button><b>Log Out</b></button>
+    </a>
+</div>
+
+<h2>ADD BOOK</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Book Name" required>
+    <input type="number" name="price" placeholder="Book Price" required>
+    <button type="submit">Add Book</button>
+</form>
+
+<table>
+    <tr>
+        <th>Book Name</th>
+        <th>Price</th>
+        <th>Action</th>
+    </tr>
+
+    {% for book in books %}
+    <tr>
+        <td>{{ book.name }}</td>
+        <td><b>$</b>{{ book.price }}</td>
+        <td>
+            <a href="/delete/{{ book.id }}/">
+                <button class="delete-btn">Delete</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+<!-- ============================= -->
+<!--      PURCHASED USERS TABLE   -->
+<!-- ============================= -->
+<h2>Users Who Purchased Books</h2>
+
+<!-- Search box -->
+<form style="text-align:center; margin-bottom:20px;" method="GET">
+    <input type="text" name="search" placeholder="Search by Name, Email or Phone" value="{{ request.GET.search }}">
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>No. of Books</th>
+        <th>Book Names</th>
+        <th>Total Amount</th>
+        <th>Action</th>
+    </tr>
+
+    {% for bill in bills %}
+    <tr>
+        <td>{{ bill.name }}</td>
+        <td>{{ bill.email }}</td>
+        <td>{{ bill.phone }}</td>
+        <td>{{ bill.total_books }}</td>
+        <td>{{ bill.book_names }}</td>
+        <td><b>$</b>{{ bill.total_amount }}</td>
+        <td>
+            <a href="{% url 'delete_purchase' forloop.counter0 %}">
+                <button class="delete-btn">Delete Transaction</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
